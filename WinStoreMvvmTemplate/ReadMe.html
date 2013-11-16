@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>About Windows Store MVVM Template</title>
+    <meta name="keywords" content="Kyle Mitofsky" />
+    <meta name="author" content="Kyle Mitofsky" />
+    <link rel="shortuct icon" type="image/png" href="gT5SohE.png" />
+    <link rel="shortcut icon" type="image/png" href="http://i.imgur.com/gT5SohE.png" />
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=vb&lang=xaml"></script>
+    <style type="text/css">
+        /* color the same as Visual Studio */
+        .com       {color: #008000;}
+        .str, .tag {color: #A31515;}
+        .kwd, .atv {color: #0000FF;}
+        .typ       {color: #2B91AF;}
+        .lit, .atn {color: #FF0000;}
+        .pun, .pln {color: #000000;}
+        .dec       {color: #800080;}
+
+        /* add horizontal scrollbars */
+        pre.prettyprint {
+            background: white;
+            width: auto;
+            overflow: auto;
+            max-height: 600px;
+            word-wrap: normal;
+        }
+        pre.prettyprint code {
+            white-space: pre;
+        }
+        body {
+            background-image: url("http://i.imgur.com/WpEs6JE.png");
+        }
+        h2 {
+            color: #922222;
+        }
+        .sample {
+            margin-left: 15px;
+        }
+        #wrapper {
+            margin: 15px;
+            margin-bottom: 60px;
+        }
+        .clear {
+            clear: both;
+        }
+        #directory-image {
+            display: none;
+        }
+
+        #directory-text {
+            margin-left: 0;
+        }
+        @media (min-width: 718px) {
+            #directory-image {
+                display: inline;
+                width: 309px;
+            }
+
+            #directory-text {
+                margin-left: 319px;
+            }
+        }
+
+    </style>
+</head>
+    <body>
+        <div id="wrapper">
+            <h1>Windows Store MVVM Template</h1>
+            <p>A bare bones starter template for Windows Store 8.1 Projects that Utilizes the Model View View Model Pattern</p>
+
+            <h2>Directory:</h2>
+            <p>Here's a breakdown of the directory structure:</p>
+            <div class="directory-wrapper">
+                <img src="http://i.imgur.com/IEz8jLj.png" 
+                     class="pull-left" alt="directory" id="directory-image"/>
+                <div id="directory-text">
+                    <ul>
+                        <li><strong>Assets</strong>: contains images for the <code>Package.appxmanifest</code></li>
+                        <li><strong>Model</strong>: contains core business logic for the application</li>
+                        <li>
+                            <strong>Resources</strong>: contains common resources for the whole application
+                            <ul>
+                                <li><strong>AppResources.xaml</strong>: contains xaml resources that is added to <code>App.Resources</code></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>Utilities</strong>: contains reusable helper classes that can be used in this, and other, projects.
+                            <ul>
+                                <li><strong>BindableBase.vb</strong>: implements <a href="http://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged(v=vs.110).aspx"><code>INotifyPropertyChanged</code></a> which can be inherited by classes in you ViewModel</li>
+                                <li><strong>NavigationHelper.vb</strong>: adds Navigation support and Process Lifetime Management</li>
+                                <li><strong>RelayCommand.vb</strong>: implements <a href="http://msdn.microsoft.com/en-us/library/system.windows.input.icommand(v=vs.110).aspx"><code>ICommand</code></a> to help invoke delegates through binding.</li>
+                                <li><strong>SuspensionManager.vb</strong>: captures global session state to simplify process lifetime management</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>View</strong>: contains views for the User Interface layer of the application
+                            <ul>
+                                <li><strong>MainView.xaml</strong>: has the initial window that the application launches</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>ViewModel</strong>: contains classes which help communicate between the <code>View</code> and the <code>Model</code>
+                            <ul>
+                                <li><strong>MainViewModel.vb</strong>: contains the business logic for <code>MainView.xaml</code></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <strong>App.xaml</strong>: contains resources scoped to the entire application
+                            <ul>
+                                <li><strong>App.xaml.vb</strong>: contains startup code for the application</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div >
+            <div class="clear"></div>
+
+            <h2>Samples:</h2>
+            
+            <h3>Binding</h3>
+            <div class="sample">
+                <p><strong>MainView.xaml</strong></p>
+                <pre class="prettyprint"><code class="lang-xml">&lt;button content=&quot;Say Hello&quot; command=&quot;{Binding SayHelloCommand}&quot; /&gt;</code></pre>
+
+                <p><strong>MainViewMode.vb</strong></p>
+                <pre class="prettyprint"><code class=" lang-vb">Private _personName As String
+Public Property PersonName As String
+    Get
+        Return _personName
+    End Get
+    Set(ByVal value As String)
+        SetProperty(_personName, value)
+    End Set
+End Property</code></pre>
+            </div>
+
+            <h3>Commands</h3>
+            <div class="sample">
+                <p><strong>MainView.xaml</strong></p>
+                <pre class="prettyprint"><code class="lang-xml">&lt;button content=&quot;Say Hello&quot; command=&quot;{Binding SayHelloCommand}&quot; /&gt;</code></pre>
+
+                <p><strong>MainViewMode.vb</strong></p>
+                <pre class="prettyprint"><code class=" lang-vb">Private _sayHelloCommand As RelayCommand
+Public ReadOnly Property SayHelloCommand As RelayCommand
+    Get
+        If _sayHelloCommand Is Nothing Then
+            _sayHelloCommand = New RelayCommand(Async Sub() Await SayHello())
+        End If
+        Return _sayHelloCommand
+    End Get
+End Property</code></pre>
+            </div>
+
+            <h2>Contact:</h2>
+            <p>Reach Me At:</p>
+            <ul>
+                <li><a href="http://codingeverything.blogspot.com/">CodingEverything.blogspot.com</a></li>
+                <li><a href="http://kylemitofsky.com/">KyleMitofsky.com</a></li>
+            </ul>
+            </div>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
+  <Identity Name="495faf74-2cd9-4b9f-986b-c324a49b0cf4" Publisher="CN=Kyle" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>WinStoreMvvmTemplate</DisplayName>
+    <PublisherDisplayName>Kyle</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.3.0</OSMinVersion>
+    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="WinStoreMvvmTemplate.App">
+      <m2:VisualElements DisplayName="WinStoreMvvmTemplate" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="WinStoreMvvmTemplate" ForegroundText="light" BackgroundColor="#FBD839" ToastCapable="false">
+        <m2:DefaultTile Wide310x150Logo="Assets\WideLogo.png" Square310x310Logo="Assets\BigLogo.png" Square70x70Logo="Assets\MidLogo.png">
+        </m2:DefaultTile>
+        <m2:SplashScreen Image="Assets\SplashScreen.png" />
+        <m2:ApplicationView MinWidth="width320" />
+      </m2:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>
